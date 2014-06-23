@@ -1,3 +1,3 @@
-# Varnish language support for Atom
+# Varnish language support
 
-Adds language support fot Varnish configuration files to Atom.
+Adds language support for Varnish configuration files to Atom.
