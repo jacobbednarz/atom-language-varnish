@@ -1,0 +1,3 @@
+'.source.varnish':
+  'editor':
+    'commentStart': '# '
