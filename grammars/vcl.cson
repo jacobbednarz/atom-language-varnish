@@ -1,0 +1,245 @@
+'fileTypes': [
+  'vcl'
+]
+'foldingStartMarker': '^.*\\b(backend|sub)\\s*(\\w+\\s*)?(\\s*\\{[^\\}]*)?\\s*$'
+'foldingStopMarker': '^\\s*\\}'
+'name': 'VCL'
+'patterns': [
+  {
+    'include': '#comment'
+  }
+  {
+    'include': '#keyword-acl'
+  }
+  {
+    'include': '#keyword-backend'
+  }
+  {
+    'include': '#keyword-import'
+  }
+  {
+    'include': '#keyword-sub'
+  }
+  {
+    'include': '#keywords-others'
+  }
+]
+'repository':
+  'backend-probe':
+    'patterns': [
+      {
+        'begin': '\\.(url)\\s*='
+        'captures':
+          '1':
+            'name': 'support.other.backend.probe.subkey.vcl'
+        'end': ';'
+        'name': 'meta.backend.probe.subkeys.string.vcl'
+        'patterns': [
+          {
+            'include': '#quoted-string'
+          }
+        ]
+      }
+      {
+        'begin': '\\.(timeout|interval)\\s*='
+        'captures':
+          '1':
+            'name': 'support.other.backend.probe.subkey.vcl'
+        'end': ';'
+        'name': 'meta.backend.subkeys.time.vcl'
+        'patterns': [
+          {
+            'include': '#time-spec'
+          }
+        ]
+      }
+      {
+        'begin': '\\.(window|threshold)\\s*='
+        'captures':
+          '1':
+            'name': 'support.other.backend.probe.subkey.vcl'
+        'end': ';'
+        'name': 'meta.backend.subkeys.number.vcl'
+        'patterns': [
+          {
+            'include': '#number-spec'
+          }
+        ]
+      }
+    ]
+  'backend-subkeys':
+    'patterns': [
+      {
+        'begin': '\\.(host|port)\\s*='
+        'captures':
+          '1':
+            'name': 'support.other.backend.subkey.vcl'
+        'end': ';'
+        'name': 'meta.backend.subkeys.string.vcl'
+        'patterns': [
+          {
+            'include': '#quoted-string'
+          }
+        ]
+      }
+      {
+        'begin': '\\.(probe)\\s*=\\s*{'
+        'captures':
+          '1':
+            'name': 'support.other.backend.probe.vcl'
+        'end': '}'
+        'name': 'meta.backend.probe.vcl'
+        'patterns': [
+          {
+            'include': '#backend-probe'
+          }
+        ]
+      }
+      {
+        'begin': '\\.(connect_timeout|first_byte_timeout|between_bytes_timeout)\\s*='
+        'captures':
+          '1':
+            'name': 'support.other.backend.subkey.vcl'
+        'end': ';'
+        'name': 'meta.backend.subkeys.time.vcl'
+        'patterns': [
+          {
+            'include': '#time-spec'
+          }
+        ]
+      }
+    ]
+  'comment':
+    'patterns': [
+      {
+        'begin': '/\\*'
+        'end': '\\*/'
+        'name': 'comment.block.vcl'
+      }
+      {
+        'match': '(#).*$\\n?'
+        'name': 'comment.line.vcl'
+      }
+    ]
+  'function-invocation':
+    'captures':
+      '1':
+        'name': 'entity.name.function.vcl'
+    'match': '\\b(\\S+)\\((.*)\\)'
+    'name': 'meta.control.function'
+  'keyword-acl':
+    'patterns': [
+      {
+        'match': '\\b(acl)\\b'
+        'name': 'keyword.other.vcl.acl'
+      }
+    ]
+  'keyword-backend':
+    'begin': '\\b(backend)\\s+([a-zA-Z0-9_]+)\\s*{'
+    'captures':
+      '1':
+        'name': 'keyword.control.backend.vcl'
+      '2':
+        'name': 'entity.name.backend.vcl'
+    'end': '}'
+    'name': 'meta.backend.vcl'
+    'patterns': [
+      {
+        'include': '#backend-subkeys'
+      }
+    ]
+  'keyword-import':
+    'captures':
+      '1':
+        'name': 'keyword.control.backend.vcl'
+      '2':
+        'name': 'entity.name.backend.vcl'
+    'match': '\\b(import)\\s+([a-zA-Z0-9_]+)'
+    'name': 'meta.import.vcl'
+  'keyword-sub':
+    'patterns': [
+      {
+        'begin': '\\b(sub)\\s+([a-zA-Z0-9_]+)\\s*{'
+        'captures':
+          '1':
+            'name': 'keyword.sub.vcl.action'
+          '2':
+            'name': 'entity.name.function.vcl'
+        'end': '}'
+        'name': 'meta.sub.vcl'
+        'patterns': [
+          {
+            'include': '#sub-body'
+          }
+        ]
+      }
+    ]
+  'keywords-others':
+    'patterns': [
+      {
+        'match': '\\b(director|probe)\\b'
+        'name': 'keyword.other.vcl'
+      }
+    ]
+  'number-spec':
+    'patterns': [
+      {
+        'match': '\\d'
+        'name': 'constant.numeric.vcl'
+      }
+    ]
+  'quoted-string':
+    'begin': '"'
+    'end': '"'
+    'name': 'string.quoted.double.vcl'
+  'sub-body':
+    'patterns': [
+      {
+        'match': '\\b(call|hash_data|panic|ban|ban_url|remove|return|rollback|set|synthetic|unset|purge|error)\\b'
+        'name': 'keyword.control.vcl.action'
+      }
+      {
+        'begin': '\\b(if|elseif)\\s*\\((.+)\\)\\s*(\\{\\s*|$)'
+        'captures':
+          '1':
+            'name': 'keyword.control.vcl.if'
+        'end': '}'
+        'name': 'meta.control.vcl.if'
+        'patterns': [
+          {
+            'include': '#sub-body'
+          }
+        ]
+      }
+      {
+        'begin': '\\b(else)\\s*(\\{\\s*|$)'
+        'captures':
+          '1':
+            'name': 'keyword.control.vcl.else'
+        'end': '}'
+        'name': 'meta.control.vcl.else'
+        'patterns': [
+          {
+            'include': '#sub-body'
+          }
+        ]
+      }
+      {
+        'match': '\\b(regsub|regsuball|true|false)\\b(?![?!])'
+        'name': 'constant.language.vcl'
+      }
+      {
+        'include': '#comment'
+      }
+      {
+        'include': '#quoted-string'
+      }
+    ]
+  'time-spec':
+    'patterns': [
+      {
+        'match': '\\d+\\s*(s|ms)'
+        'name': 'constant.numeric.time.vcl'
+      }
+    ]
+'scopeName': 'source.varnish.vcl'

@@ -1,0 +1,10 @@
+'*':
+  'backend with probe':
+    'prefix': 'bp'
+    'body': 'backend ${1:default} {\n  .host = "${2:127.0.0.1}";\n  .port = "80";\n  .probe = {\n    .url = "${3:/}";\n    .timeout = ${4:50ms};\n    .interval = ${5:1s};\n    .window = 10;\n    .threshold = 8;\n  }\n}\n'
+  'backend':
+    'prefix': 'backend'
+    'body': 'backend ${1:default} {\n\t.host = "${2:127.0.0.1}";\n\t.port = "80";\n}'
+  'sub':
+    'prefix': 'sub'
+    'body': 'sub ${1:name} {\n\t$2\n}'
