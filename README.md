@@ -1,3 +1,3 @@
-# VCL language support in Atom
+# Syntax support for VCL files in Atom. 
 
-Adds language support for Varnish configuration files to Atom.
+Contributions are welcome and bonus are awarded for pull requests. Please fork and send a pull requests for updates to grammars, snippets or documentation.
