@@ -120,6 +120,10 @@
         'match': '(#).*$\\n?'
         'name': 'comment.line.vcl'
       }
+      {
+        'match': '(//).*$\\n?'
+        'name': 'comment.line.vcl'
+      }
     ]
   'function-invocation':
     'captures':
