@@ -1,6 +1,6 @@
 {
   "name": "language-varnish",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Language support for Varnish configuration files",
   "repository": "https://github.com/jacobbednarz/atom-language-varnish",
   "license": "MIT",
