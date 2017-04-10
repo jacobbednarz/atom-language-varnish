@@ -203,7 +203,7 @@
         'name': 'keyword.control.vcl.action'
       }
       {
-        'begin': '\\b(if|elseif)\\s*\\((.+)\\)\\s*(\\{\\s*|$)'
+        'begin': '\\b(if|elseif|elsif|elif|else if)\\s*\\((.+)\\)\\s*(\\{\\s*|$)'
         'captures':
           '1':
             'name': 'keyword.control.vcl.if'
